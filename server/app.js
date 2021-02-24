@@ -10,6 +10,7 @@ import logger from 'morgan'
 import indexRouter from './routes/index'
 import usersRouter from './routes/users'
 import authRoutes from './routes/authRoutes'
+import requireAuth from './middlewares/requireAuth'
 import mongoose from 'mongoose'
 
 var app = express()
@@ -21,7 +22,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
+app.use('/users', requireAuth, usersRouter)
 app.use(authRoutes)
 
 mongoose.connect('mongodb://localhost/life-navigator-dev', {
