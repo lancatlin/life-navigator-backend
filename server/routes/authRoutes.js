@@ -22,4 +22,28 @@ router.post('/signup', async (req, res) => {
   }
 })
 
+router.post('/signin', async (req, res) => {
+  const { email, password } = req.body
+
+  if (!email || !password) {
+    res.status(422).send('Email and password is required.')
+    return
+  }
+  console.log(email, password)
+
+  const user = await User.findOne({ email })
+  if (!user) {
+    res.send(422).send('Invalid email or password.')
+    return
+  }
+
+  try {
+    await user.comparePassword(password)
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY)
+    res.send({ token })
+  } catch (err) {
+    res.status(422).send('Invalid email or password.')
+  }
+})
+
 export default router
