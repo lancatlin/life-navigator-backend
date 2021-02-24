@@ -1,5 +1,7 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
+import dotenv from 'dotenv'
+dotenv.config()
 import './models/User'
 import express from 'express'
 import path from 'path'
