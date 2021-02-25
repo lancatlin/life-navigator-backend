@@ -1,49 +1,49 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import process from 'process'
-import jwt from 'jsonwebtoken'
+import express from 'express';
+import mongoose from 'mongoose';
+import process from 'process';
+import jwt from 'jsonwebtoken';
 
-const User = mongoose.model('User')
+const User = mongoose.model('User');
 
-const router = express.Router()
+const router = express.Router();
 
 router.post('/signup', async (req, res) => {
-  const { email, password } = req.body
-  console.log(email, password)
+  const { email, password } = req.body;
+  console.log(email, password);
 
   try {
-    const user = new User({ email, password })
-    await user.save()
-    console.log(`Create user ${user}`)
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY)
-    res.send({ token })
+    const user = new User({ email, password });
+    await user.save();
+    console.log(`Create user ${user}`);
+    const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
+    res.send({ token });
   } catch (err) {
-    res.status(422).send(err.message)
+    res.status(422).send(err.message);
   }
-})
+});
 
 router.post('/signin', async (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(422).send('Email and password is required.')
-    return
+    res.status(422).send('Email and password is required.');
+    return;
   }
-  console.log(email, password)
+  console.log(email, password);
 
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ email });
   if (!user) {
-    res.send(422).send('Invalid email or password.')
-    return
+    res.send(422).send('Invalid email or password.');
+    return;
   }
 
   try {
-    await user.comparePassword(password)
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY)
-    res.send({ token })
+    await user.comparePassword(password);
+    const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
+    res.send({ token });
   } catch (err) {
-    res.status(422).send('Invalid email or password.')
+    res.status(422).send('Invalid email or password.');
   }
-})
+});
 
-export default router
+export default router;
