@@ -13,7 +13,6 @@ router.post('/', async (req, res) => {
 
   const goal = new Goal({
     userId: req.user._id,
-    createdAt: Date.now(),
     name,
     parent,
     expireAt,

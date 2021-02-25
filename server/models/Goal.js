@@ -21,11 +21,18 @@ const goalSchema = new mongoose.Schema({
       ref: 'Goal',
     },
   ],
-  createdAt: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   expireAt: Date,
   duration: Number,
   frequency: Number,
   eachTime: Number,
+  completedTime: {
+    type: Number,
+    default: 0,
+  },
   /*
   preferredTime: {
     type: mongoose.Schema.Types.ObjectId,
