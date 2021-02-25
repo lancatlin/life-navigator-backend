@@ -18,9 +18,10 @@ export default (req, res, next) => {
     }
 
     const { userId } = payload;
-    const user = User.findById(userId);
+    const user = await User.findById(userId);
     req.user = user;
-    return next();
+    next();
+    return 0;
   });
   return 0;
 };

@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const goalSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -9,6 +13,7 @@ const goalSchema = new mongoose.Schema({
   parent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Goal',
+    default: null,
   },
   childs: [
     {
@@ -16,12 +21,13 @@ const goalSchema = new mongoose.Schema({
       ref: 'Goal',
     },
   ],
+  createdAt: Date,
   expireAt: Date,
-  Duration: Number,
-  Frequency: Number,
-  EachTime: Number,
+  duration: Number,
+  frequency: Number,
+  eachTime: Number,
   /*
-  PreferredTime: {
+  preferredTime: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Session',
   },

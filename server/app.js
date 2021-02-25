@@ -11,6 +11,7 @@ import mongoose from 'mongoose';
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 import authRoutes from './routes/authRoutes';
+import goalRoutes from './routes/goalRoutes';
 import requireAuth from './middlewares/requireAuth';
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', indexRouter);
 app.use('/users', requireAuth, usersRouter);
+app.use('/goals', requireAuth, goalRoutes);
 app.use(authRoutes);
 
 mongoose.connect('mongodb://localhost/life-navigator-dev', {
