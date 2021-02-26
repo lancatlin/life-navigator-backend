@@ -7,7 +7,7 @@ const sessionSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  time: [[Boolean]],
+  time: [Boolean],
 });
 
 mongoose.model('Session', sessionSchema);

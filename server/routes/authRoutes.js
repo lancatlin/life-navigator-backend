@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import process from 'process';
 import jwt from 'jsonwebtoken';
+import defaultSession from '../models/defaultSession';
 
 const User = mongoose.model('User');
 
@@ -14,7 +15,8 @@ router.post('/signup', async (req, res) => {
   try {
     const user = new User({ email, password });
     await user.save();
-    console.log(`Create user ${user}`);
+    const session = defaultSession(user._id);
+    await session.save();
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
     res.send({ token });
   } catch (err) {
