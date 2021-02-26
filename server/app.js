@@ -2,6 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import dotenv from 'dotenv';
 import './models/User';
+import './models/Session';
 import './models/Goal';
 import express from 'express';
 import path from 'path';

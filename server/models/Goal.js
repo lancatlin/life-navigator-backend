@@ -10,17 +10,6 @@ const goalSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  parent: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Goal',
-    default: null,
-  },
-  childs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Goal',
-    },
-  ],
   createdAt: {
     type: Date,
     default: Date.now,
@@ -33,12 +22,12 @@ const goalSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  /*
-  preferredTime: {
+  description: String,
+  sessionId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Session',
+    required: true,
   },
-  */
 });
 
 mongoose.model('Goal', goalSchema);
