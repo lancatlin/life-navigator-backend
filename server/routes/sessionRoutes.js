@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-
-const Session = mongoose.model('Session');
+import Session from '../models/Session';
 
 const router = express.Router();
 

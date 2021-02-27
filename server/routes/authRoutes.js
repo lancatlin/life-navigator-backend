@@ -2,9 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import process from 'process';
 import jwt from 'jsonwebtoken';
-import defaultSession from '../models/defaultSession';
-
-const User = mongoose.model('User');
+import { defaultSession } from '../models/Session';
+import User from '../models/User';
 
 const router = express.Router();
 

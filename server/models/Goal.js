@@ -30,4 +30,4 @@ const goalSchema = new mongoose.Schema({
   },
 });
 
-mongoose.model('Goal', goalSchema);
+export default mongoose.model('Goal', goalSchema);

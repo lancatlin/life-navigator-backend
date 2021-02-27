@@ -1,8 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
-
-// const User = mongoose.model('User');
-const Goal = mongoose.model('Goal');
+import Goal from '../models/Goal';
 
 const router = express.Router();
 
