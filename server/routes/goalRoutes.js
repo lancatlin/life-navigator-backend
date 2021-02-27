@@ -48,8 +48,11 @@ router.put('/goals/:id', async (req, res) => {
 
 router.delete('/goals/:id', async (req, res) => {
   try {
-    await Goal.deleteOne({ _id: req.params.id, userId: req.user._id });
-    res.send('Success');
+    const { deletedCount } = await Goal.deleteOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
+    res.send({ deletedCount });
   } catch (err) {
     res.status(500).send(err.message);
   }

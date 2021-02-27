@@ -40,4 +40,16 @@ router.put('/sessions/:id', async (req, res) => {
   }
 });
 
+router.delete('/sessions/:id', async (req, res) => {
+  try {
+    const { deletedCount } = await Session.deleteOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
+    res.send({ deletedCount });
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
 export default router;
