@@ -10,7 +10,8 @@ const sessionSchema = new mongoose.Schema({
   time: [Number],
 });
 
-export default mongoose.model('Session', sessionSchema);
+const Session = mongoose.model('Session', sessionSchema);
+export default Session;
 
 export const defaultSession = (userId) => {
   const t = new Array(24).fill(0).map((_, i) => (8 <= i && i < 22 ? 1 : 0));

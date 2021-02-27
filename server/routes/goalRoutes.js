@@ -35,10 +35,21 @@ router.post('/goals', async (req, res) => {
 
 router.put('/goals/:id', async (req, res) => {
   try {
-    const goal = await Goal.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    });
+    const goal = await Goal.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user._id },
+      req.body,
+      { new: true }
+    );
     res.send(goal);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+router.delete('/goals/:id', async (req, res) => {
+  try {
+    await Goal.deleteOne({ _id: req.params.id, userId: req.user._id });
+    res.send('Success');
   } catch (err) {
     res.status(500).send(err.message);
   }
