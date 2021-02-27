@@ -7,7 +7,34 @@ const sessionSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  time: [Boolean],
+  time: [Number],
 });
 
-mongoose.model('Session', sessionSchema);
+export default mongoose.model('Session', sessionSchema);
+
+export const defaultSession = (userId) => {
+  const t = new Array(24).fill(0).map((_, i) => (8 <= i && i < 22 ? 1 : 0));
+  return new Session({
+    userId,
+    name: 'default',
+    time: new Array(7).fill(encode(t)),
+  });
+};
+
+export const encode = (array) => {
+  let result = 0;
+  for (let v of array) {
+    result <<= 1;
+    result += v;
+  }
+  return result;
+};
+
+export const decode = (num, length) => {
+  const array = new Array(length);
+  for (let i = 0; i < length; i++) {
+    array[length - 1 - i] = num % 2;
+    num >>= 1;
+  }
+  return array;
+};
