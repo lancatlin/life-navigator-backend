@@ -11,6 +11,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoutes';
 import goalRoutes from './routes/goalRoutes';
+import sessionRoutes from './routes/sessionRoutes';
 import requireAuth from './middlewares/requireAuth';
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(authRoutes);
 app.use(requireAuth, goalRoutes);
+app.use(requireAuth, sessionRoutes);
 
 mongoose.connect('mongodb://localhost/life-navigator-dev', {
   useNewUrlParser: true,
