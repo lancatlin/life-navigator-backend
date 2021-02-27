@@ -33,4 +33,15 @@ router.post('/goals', async (req, res) => {
   }
 });
 
+router.put('/goals/:id', async (req, res) => {
+  try {
+    const goal = await Goal.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
+    res.send(goal);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 export default router;
