@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import Session from '../models/Session';
 
 const router = express.Router();
