@@ -19,6 +19,9 @@ export default (req, res, next) => {
 
     const { userId } = payload;
     const user = await User.findById(userId);
+    if (!user) {
+      return res.status(401).send('User not found.');
+    }
     req.user = user;
     next();
     return 0;

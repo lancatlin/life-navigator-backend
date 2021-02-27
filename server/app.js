@@ -9,8 +9,6 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
 import authRoutes from './routes/authRoutes';
 import goalRoutes from './routes/goalRoutes';
 import requireAuth from './middlewares/requireAuth';
@@ -25,10 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/', indexRouter);
-app.use('/users', requireAuth, usersRouter);
-app.use('/goals', requireAuth, goalRoutes);
 app.use(authRoutes);
+app.use(requireAuth, goalRoutes);
 
 mongoose.connect('mongodb://localhost/life-navigator-dev', {
   useNewUrlParser: true,

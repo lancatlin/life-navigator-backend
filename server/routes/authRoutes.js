@@ -31,11 +31,10 @@ router.post('/signin', async (req, res) => {
     res.status(422).send('Email and password is required.');
     return;
   }
-  console.log(email, password);
 
   const user = await User.findOne({ email });
   if (!user) {
-    res.send(422).send('Invalid email or password.');
+    res.status(422).send('Invalid email or password.');
     return;
   }
 

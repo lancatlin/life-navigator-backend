@@ -6,15 +6,13 @@ const Goal = mongoose.model('Goal');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-  const { name, parent, expireAt, duration, frequency, eachTime } = req.body;
-
-  console.log(req.user._id);
+router.post('/goals', async (req, res) => {
+  const { name, sessionId, expireAt, duration, frequency, eachTime } = req.body;
 
   const goal = new Goal({
     userId: req.user._id,
+    sessionId,
     name,
-    parent,
     expireAt,
     duration,
     frequency,
